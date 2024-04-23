@@ -8,7 +8,7 @@ router(app);
 
 AppDataSource.initialize()
   .then(() => {
-    console.log("Banco de dados conectado");
+    console.log("Banco de dados conectado!!!");
   })
   .catch((erro) => {
     console.log(erro);
