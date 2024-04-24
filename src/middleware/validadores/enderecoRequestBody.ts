@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { NextFunction, Request, Response } from "express";
-import EnderecoEntity from "../../entities/Endereco";
+import EnderecoEntity from "../../entities/EnderecoEntity";
 import { pt } from "yup-locale-pt";
 
 yup.setLocale(pt);

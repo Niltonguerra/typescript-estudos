@@ -10,6 +10,8 @@ import {
 } from "../tipos/tiposPet";
 
 export default class PetController {
+
+
   constructor(private repository: PetRepository) {}
   async criaPet(
     req: Request<TipoRequestParamsPet, {}, TipoRequestBodyPet>,
@@ -33,6 +35,9 @@ export default class PetController {
       .json({ data: { id: novoPet.id, nome, especie, porte } });
   }
 
+
+
+  
   async listaPet(
     req: Request<TipoRequestParamsPet, {}, TipoRequestBodyPet>,
     res: Response<TipoResponseBodyPet>

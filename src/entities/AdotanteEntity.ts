@@ -8,7 +8,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import EnderecoEntity from "./Endereco";
+import EnderecoEntity from "./EnderecoEntity";
 import PetEntity from "./PetEntity";
 import { criaSenhaCriptografada } from "../utils/senhaCriptografada";
 
@@ -20,7 +20,7 @@ export default class AdotanteEntity {
   nome: string;
   @Column()
   senha: string;
-  @Column()
+  @Column({unique:true})
   celular: string;
   @Column({ nullable: true })
   foto?: string;
@@ -32,6 +32,7 @@ export default class AdotanteEntity {
   })
   @JoinColumn()
   endereco?: EnderecoEntity;
+  
   @OneToMany(() => PetEntity, (pet) => pet.adotante)
   pets!: PetEntity[];
 

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import AdotanteEntity from "../entities/AdotanteEntity";
 import AdotanteRepository from "../repositories/AdotanteRepository";
-import EnderecoEntity from "../entities/Endereco";
+import EnderecoEntity from "../entities/EnderecoEntity";
 
 
 import {
