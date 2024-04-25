@@ -29,7 +29,7 @@ export default class PetRepository implements InterfacePetRepository {
       const petToUpdate = await this.petRepository.findOne({ where: { id } });
 
       if (!petToUpdate) {
-        return { success: false, message: "Pet não encontrado" };
+        return { success: false, message: "Pet não foi encontrado" };
       }
 
       Object.assign(petToUpdate, newData);
