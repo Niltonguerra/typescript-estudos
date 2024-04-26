@@ -2,18 +2,19 @@ import { Repository } from "typeorm";
 import AdotanteEntity from "../entities/AdotanteEntity";
 import InterfaceAdotanteRepository from "./interfaces/InterfaceAdotanteRepository";
 import EnderecoEntity from "../entities/EnderecoEntity";
+import { NaoEncontrado, RequisicaoRuim } from "../utils/manipulaErros";
 
 export default class AdotanteRepository implements InterfaceAdotanteRepository {
   constructor(private repository: Repository<AdotanteEntity>) {}
 
-  // private async verificaCelularAdotante(celular:string){
-  //   return await this.repository.findOne({where:{celular}});
-  // }
+  private async verificaCelularAdotante(celular:string){
+    return await this.repository.findOne({where:{celular}});
+  }
 
-   criaAdotante(adotante: AdotanteEntity):  void |Promise<void> {
-    // if(await this.verificaCelularAdotante(adotante.celular)){
-    //   throw new RequisicaoRuim("Celular já cadastrado"); 
-    // }
+   async criaAdotante(adotante: AdotanteEntity):  Promise<void> {
+    if(await this.verificaCelularAdotante(adotante.celular)){
+      throw new RequisicaoRuim("Celular já cadastrado"); 
+    }
      this.repository.save(adotante);
   }
 
@@ -24,54 +25,44 @@ export default class AdotanteRepository implements InterfaceAdotanteRepository {
   async atualizaAdotante(
     id: number,
     newData: AdotanteEntity
-  ): Promise<{ success: boolean; message?: string }> {
-    try {
-      const adotanteToUpdate = await this.repository.findOne({ where: { id } });
+): Promise<{ success: boolean; message?: string }> {
 
-      if (!adotanteToUpdate) {
-        return { success: false, message: "Adotante não encontrado" };
-      }
+    const adotanteToUpdate = await this.repository.findOne({ where: { id } });
 
-      Object.assign(adotanteToUpdate, newData);
-
-      await this.repository.save(adotanteToUpdate);
-
-      return { success: true };
-    } catch (error) {
-      console.log(error);
-      return {
-        success: false,
-        message: "Ocorreu um erro ao tentar atualizar o adotante.",
-      };
+    if (!adotanteToUpdate) {
+        throw new NaoEncontrado("Adotante não encontrado");
     }
-  }
 
-  async deletaAdotante(
+    Object.assign(adotanteToUpdate, newData);
+
+    await this.repository.save(adotanteToUpdate);
+    
+    return { success: true };
+    
+}
+
+
+async deletaAdotante(
     id: number
-  ): Promise<{ success: boolean; message?: string }> {
-    try {
-      const adotanteToRemove = await this.repository.findOne({ where: { id } });
+): Promise<{ success: boolean; message?: string }> {
+    const adotanteToRemove = await this.repository.findOne({ where: { id } });
 
-      if (!adotanteToRemove) {
-        return { success: false, message: "Adotante não encontrado" };
-      }
-
-      await this.repository.remove(adotanteToRemove);
-
-      return { success: true };
-    } catch (error) {
-      // Se ocorrer um erro inesperado, você pode retornar uma mensagem genérica ou personalizada.
-      return {
-        success: false,
-        message: "Ocorreu um erro ao tentar excluir o adotante.",
-      };
+    if (!adotanteToRemove) {
+        throw new NaoEncontrado("Adotante não encontrado!");
     }
-  }
+
+    await this.repository.remove(adotanteToRemove);
+    
+    return { success: true };
+}
+
 
   async atualizaEnderecoAdotante(
     idAdotante: number,
     endereco: EnderecoEntity
   ): Promise<{ success: boolean; message?: string }> {
+
+
     const adotante = await this.repository.findOne({
       where: { id: idAdotante },
     });
@@ -85,4 +76,5 @@ export default class AdotanteRepository implements InterfaceAdotanteRepository {
     await this.repository.save(adotante);
     return { success: true };
   }
+  
 }
