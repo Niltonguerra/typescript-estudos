@@ -2,6 +2,10 @@ import * as yup from "yup";
 import { TipoRequestBodyAdotante } from "../../tipos/tiposAdotante";
 import { NextFunction, Request, Response } from "express";
 import { pt } from "yup-locale-pt";
+<<<<<<< HEAD
+=======
+import tratarErroValidacaoYup from "../../utils/trataValidacaoYup";
+>>>>>>> master
 
 yup.setLocale(pt);
 
@@ -15,7 +19,11 @@ const esquemaBodyAdotante: yup.ObjectSchema<
     .required()
     .matches(
       /^(\(?[0-9]{2}\)?)? ?([0-9]{4,5})-?([0-9]{4})$/gm,
+<<<<<<< HEAD
       "Celular inválido"
+=======
+      "celular inválido"
+>>>>>>> master
     ),
   senha: yup
     .string()
@@ -34,6 +42,7 @@ const middlewareValidadorBodyAdotante = async (
   res: Response,
   next: NextFunction
 ) => {
+<<<<<<< HEAD
   try {
     await esquemaBodyAdotante.validate(req.body, {
       abortEarly: false,
@@ -50,6 +59,9 @@ const middlewareValidadorBodyAdotante = async (
     });
     return res.status(400).json({ error: validationErrors });
   }
+=======
+  tratarErroValidacaoYup(esquemaBodyAdotante, req, res, next);
+>>>>>>> master
 };
 
 export { middlewareValidadorBodyAdotante };

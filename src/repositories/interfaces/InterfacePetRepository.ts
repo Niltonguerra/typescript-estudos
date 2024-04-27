@@ -1,4 +1,5 @@
 import PetEntity from "../../entities/PetEntity";
+<<<<<<< HEAD
 import EnumPorte from "../../enum/EnumPorte";
 
 export default interface InterfacePetRepository {
@@ -37,6 +38,16 @@ export default interface InterfacePetRepository {
 
 
 
+=======
+
+export default interface InterfacePetRepository {
+  criaPet(pet: PetEntity): void | Promise<void>;
+  listaPet(): Array<PetEntity> | Promise<PetEntity[]>;
+  atualizaPet(id: number, pet: PetEntity): void;
+
+  deletaPet(id: number): void;
+  adotaPet(idPet: number, idAdotante: number): void;
+>>>>>>> master
 
   buscaPetPorCampoGenerico<Tipo extends keyof PetEntity>(
     campo: Tipo,

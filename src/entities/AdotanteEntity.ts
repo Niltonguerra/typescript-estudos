@@ -8,7 +8,11 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+<<<<<<< HEAD
 import EnderecoEntity from "./EnderecoEntity";
+=======
+import EnderecoEntity from "./Endereco";
+>>>>>>> master
 import PetEntity from "./PetEntity";
 import { criaSenhaCriptografada } from "../utils/senhaCriptografada";
 
@@ -20,7 +24,11 @@ export default class AdotanteEntity {
   nome: string;
   @Column()
   senha: string;
+<<<<<<< HEAD
   @Column({unique:true})
+=======
+  @Column({ unique: true })
+>>>>>>> master
   celular: string;
   @Column({ nullable: true })
   foto?: string;
@@ -32,7 +40,10 @@ export default class AdotanteEntity {
   })
   @JoinColumn()
   endereco?: EnderecoEntity;
+<<<<<<< HEAD
   
+=======
+>>>>>>> master
   @OneToMany(() => PetEntity, (pet) => pet.adotante)
   pets!: PetEntity[];
 
@@ -50,6 +61,7 @@ export default class AdotanteEntity {
     this.endereco = endereco;
   }
 
+<<<<<<< HEAD
 
 
   @BeforeInsert()
@@ -59,4 +71,11 @@ export default class AdotanteEntity {
   }
 
 
+=======
+  @BeforeInsert()
+  @BeforeUpdate()
+  private async criptografaSenha(senha: string) {
+    this.senha = criaSenhaCriptografada(this.senha);
+  }
+>>>>>>> master
 }

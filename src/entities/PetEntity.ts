@@ -2,7 +2,10 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import EnumEspecie from "../enum/EnumEspecie";
 import AdotanteEntity from "./AdotanteEntity";
 import EnumPorte from "../enum/EnumPorte";
+<<<<<<< HEAD
 import AbrigoEntity from "./AbrigoEntity";
+=======
+>>>>>>> master
 
 @Entity()
 export default class PetEntity {
@@ -20,11 +23,14 @@ export default class PetEntity {
   adotado: boolean;
   @ManyToOne(() => AdotanteEntity, (adotante) => adotante.pets)
   adotante!: AdotanteEntity;
+<<<<<<< HEAD
 
   @ManyToOne(() => AbrigoEntity, (abrigo) => abrigo.pets)
   abrigo!: AbrigoEntity;
 
 
+=======
+>>>>>>> master
   constructor(
     nome: string,
     especie: EnumEspecie,

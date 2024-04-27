@@ -4,6 +4,10 @@ import AdotanteController from "../controller/AdotanteController";
 import AdotanteRepository from "../repositories/AdotanteRepository";
 import { middlewareValidadorBodyAdotante } from "../middleware/validadores/adotanteRequestBody";
 import { middlewareValidadorBodyEndereco } from "../middleware/validadores/enderecoRequestBody";
+<<<<<<< HEAD
+=======
+import { verificaIdMiddleware } from "../middleware/verificaId";
+>>>>>>> master
 const router = express.Router();
 const adotanteRepository = new AdotanteRepository(
   AppDataSource.getRepository("AdotanteEntity")
@@ -16,10 +20,27 @@ const validateBodyAdotante: RequestHandler = (req, res, next) =>
 const validateBodyEndereco: RequestHandler = (req, res, next) =>
   middlewareValidadorBodyEndereco(req, res, next);
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> master
 router.post("/", validateBodyAdotante, (req, res) =>
   adotanteController.criaAdotante(req, res)
 );
 
+<<<<<<< HEAD
 router.get("/", (req, res) => adotanteController.listaAdotantes(req, res));
 
 router.put("/:id", (req, res) => adotanteController.atualizaAdotante(req, res));
@@ -32,4 +53,36 @@ router.patch("/:id", validateBodyEndereco, (req, res) =>
   adotanteController.atualizaEnderecoAdotante(req, res)
 );
 
+=======
+
+
+router.get("/", (req, res) => adotanteController.listaAdotantes(req, res));
+
+
+
+
+
+router.put("/:id", verificaIdMiddleware, (req, res) =>
+  adotanteController.atualizaAdotante(req, res)
+);
+
+
+
+
+router.delete("/:id", verificaIdMiddleware, (req, res) =>
+  adotanteController.deletaAdotante(req, res)
+);
+
+
+
+
+router.patch("/:id", verificaIdMiddleware, validateBodyEndereco, (req, res) =>
+  adotanteController.atualizaEnderecoAdotante(req, res)
+);
+
+
+
+
+
+>>>>>>> master
 export default router;
