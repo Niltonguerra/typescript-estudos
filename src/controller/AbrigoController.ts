@@ -11,6 +11,10 @@ import EnderecoEntity from "../entities/Endereco";
 
 export default class AbrigoController {
   constructor(private repository: AbrigoRepository) {}
+
+
+
+
   async criaAbrigo(
     req: Request<TipoRequestParamsAbrigo, {}, TipoRequestBodyAbrigo>,
     res: Response<TipoResponseBodyAbrigo>
@@ -19,12 +23,16 @@ export default class AbrigoController {
     const novoAbrigo = new AbrigoEntity(nome, celular, email, senha, endereco);
 
     const teste = await this.repository.criaAbrigo(novoAbrigo);
-    console.log(teste);
+    // console.log(teste);
     return res
       .status(201)
       .json({ dados: { id: novoAbrigo.id, nome, celular, email, endereco } });
   }
 
+
+
+
+  
   async listaAbrigos(
     req: Request<TipoRequestParamsAbrigo, {}, TipoRequestBodyAbrigo>,
     res: Response<TipoResponseBodyAbrigo>
